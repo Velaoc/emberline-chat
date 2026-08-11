@@ -1,0 +1,26 @@
+<% title @conversation.title %>
+<article class="emberline-conversation" data-chat-target="conversation" data-conversation-id="<%= @conversation.id %>">
+  <header class="emberline-conversation__header">
+    <h1><%= @conversation.title %></h1>
+    <div class="emberline-conversation__actions">
+      <%= button_to "Delete", conversation_path(@conversation), method: :delete, class: "md-button md-button--text md-button--danger", form: { data: { turbo_confirm: "Delete this conversation and all its messages?" } } %>
+    </div>
+  </header>
+
+  <div class="emberline-messages" data-chat-target="messages" data-controller="scroll">
+    <% @conversation.messages.each do |message| %>
+      <%= render "messages/message", message: message %>
+    <% end %>
+  </div>
+
+  <%= form_with url: conversation_messages_path(@conversation), method: :post, class: "emberline-composer", data: { chat_target: "form" } do |form| %>
+    <div class="emberline-composer__row">
+      <label class="md-sr-only" for="message">Message</label>
+      <textarea id="message" name="message" rows="1" class="emberline-composer__input" placeholder="Send a message…" required data-chat-target="input" data-action="keydown.enter->chat#submitOnEnter"></textarea>
+      <button type="submit" class="md-icon-button md-icon-button--filled" aria-label="Send message" data-chat-target="sendButton">
+        <%= material_symbol(:arrow_back, size: 24, class: "emberline-send-icon") %>
+      </button>
+    </div>
+    <p class="emberline-composer__hint">Replies stream in as they're generated.</p>
+  <% end %>
+</article>
