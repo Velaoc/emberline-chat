@@ -8,7 +8,10 @@ class ConversationsController < ApplicationController
   end
 
   def show
-    redirect_to conversations_path, alert: "Conversation not found" unless @conversation
+    return redirect_to conversations_path, alert: "Conversation not found" unless @conversation
+
+    @conversations = Conversation.for_user(current_user).ordered
+    render :index
   end
 
   def new
