@@ -24,14 +24,16 @@ class MaterialDesignPagesTest < ActionDispatch::IntegrationTest
     assert_not_includes response.body, "fonts.gstatic.com"
   end
 
-  test "authenticated shell renders one adaptive navigation and reachable sign out" do
+  test "authenticated users land in the chat shell with a reachable sign out" do
     post user_session_path, params: { user: { email: users(:confirmed).email, password: "correct horse battery" } }
+    follow_redirect! # root sends signed-in users to their conversations
+    assert_redirected_to conversations_path
     follow_redirect!
 
     assert_response :success
-    assert_select "nav.md-navigation", count: 1
-    assert_select "nav.md-navigation form button.md-navigation__signout", text: "Sign out", count: 1
-    assert_select "main#main-content.md-main"
+    assert_select ".emberline-shell", count: 1
+    assert_select "aside.emberline-sidebar button", text: "Sign out", count: 1
+    assert_select "main.emberline-chat"
   end
 
   test "static error pages use the branded responsive surface" do
