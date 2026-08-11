@@ -64,7 +64,7 @@ export default class extends Controller {
   submitOnEnter(event) {
     if (event.key === "Enter" && !event.shiftKey) {
       event.preventDefault()
-      this.send(event)
+      this.formTarget.requestSubmit()
     }
   }
 
