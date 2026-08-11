@@ -34,10 +34,10 @@ class FoundationConfigurationTest < ActiveSupport::TestCase
     end
   end
 
-  test "foundation config template defaults" do
+  test "foundation config product identity" do
     foundation = Rails.configuration.x.foundation
 
-    assert_equal "Application", foundation[:application_name]
+    assert_equal "Emberline Chat", foundation[:application_name]
     assert_match(/\A#\h{6}\z/, foundation[:brand_seed_color])
     assert_equal 90, foundation[:healthcheck_disk_usage_percent_max]
     assert_equal 90, foundation[:healthcheck_memory_usage_percent_max]
