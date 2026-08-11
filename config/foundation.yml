@@ -42,6 +42,17 @@ shared:
   healthcheck_disk_usage_percent_max: 90
   healthcheck_memory_usage_percent_max: 90
 
+  # AI chat provider (SPEC: Emberline Chat). The demo needs no keys and is
+  # the default so a fresh deploy works end to end. Flip provider to
+  # "openai_compatible" and set AI_BASE_URL/AI_MODEL (env) or the block
+  # below; AI_API_KEY is always read from the environment, never a repo.
+  ai:
+    # demo | openai_compatible
+    provider: "demo"
+    openai_compatible:
+      base_url: "https://api.openai.com/v1"
+      model: "gpt-4o-mini"
+
   # Native mobile shell (SPEC M14). Association identifiers stay empty until
   # an operator fills them; unconfigured association endpoints return 404.
   # Path-configuration JSON does not embed these values.
