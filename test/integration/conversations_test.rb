@@ -1,11 +1,17 @@
 require "test_helper"
 
 class ConversationsIntegrationTest < ActionDispatch::IntegrationTest
-  include ActionDispatch::TestProcess
+  PASSWORD = "correct horse battery"
 
   setup do
     @user = users(:confirmed)
-    sign_in @user
+    sign_in_as @user
+  end
+
+  def sign_in_as(user, password: PASSWORD)
+    post user_session_path, params: { user: { email: user.email, password: password } }
+    assert_response :redirect
+    follow_redirect!
   end
 
   test "signed-in user can create a conversation" do
@@ -19,7 +25,7 @@ class ConversationsIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test "guest is redirected to sign in" do
-    sign_out @user
+    delete destroy_user_session_path
     get conversations_path
     assert_redirected_to new_user_session_path
   end
