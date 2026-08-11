@@ -11,6 +11,8 @@ class OauthSignInTest < ActionDispatch::IntegrationTest
     follow_redirect! # OmniAuth test mode bounces straight to the callback
 
     assert_redirected_to root_path
+    follow_redirect! # root sends signed-in users to their conversations
+    assert_redirected_to conversations_path
     follow_redirect!
     assert_select "button", text: "Sign out"
   end
