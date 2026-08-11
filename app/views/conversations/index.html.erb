@@ -3,7 +3,10 @@
   <aside class="emberline-sidebar" aria-label="Conversations">
     <div class="emberline-sidebar__header">
       <span class="emberline-sidebar__label">Conversations</span>
-      <%= button_to "New chat", conversations_path, method: :post, class: "md-button md-button--filled md-button--compact", data: { turbo: false } %>
+      <div class="emberline-sidebar__actions">
+        <%= button_to "New chat", conversations_path, method: :post, class: "md-button md-button--filled md-button--compact", data: { turbo: false } %>
+        <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "md-button md-button--text md-button--compact", title: "Sign out" %>
+      </div>
     </div>
     <nav class="emberline-convo-list">
       <% @conversations.each do |conversation| %>
