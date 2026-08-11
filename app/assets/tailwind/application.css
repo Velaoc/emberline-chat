@@ -52,3 +52,235 @@
   --color-md-on-tertiary-fixed: var(--md-sys-color-on-tertiary-fixed);
   --color-md-on-tertiary-fixed-variant: var(--md-sys-color-on-tertiary-fixed-variant);
 }
+
+/* Emberline Chat — conversation shell, message bubbles, and composer. */
+.emberline-shell {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  height: calc(100dvh - var(--md-top-app-bar-height, 64px));
+  background: var(--md-sys-color-surface);
+}
+
+.emberline-sidebar {
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--md-sys-color-outline-variant);
+  background: var(--md-sys-color-surface-container-low);
+  overflow-y: auto;
+}
+
+.emberline-sidebar__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 16px;
+}
+
+.emberline-sidebar__label {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.emberline-convo-list {
+  display: flex;
+  flex-direction: column;
+  padding: 0 8px 8px;
+  gap: 2px;
+}
+
+.emberline-convo-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  color: var(--md-sys-color-on-surface);
+  text-decoration: none;
+}
+
+.emberline-convo-item:hover {
+  background: var(--md-sys-color-surface-container-high);
+}
+
+.emberline-convo-item.active {
+  background: var(--md-sys-color-secondary-container);
+  color: var(--md-sys-color-on-secondary-container);
+}
+
+.emberline-convo-item__title {
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.emberline-convo-item__meta {
+  font-size: 12px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.emberline-convo-empty {
+  padding: 16px;
+  font-size: 14px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.emberline-chat {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  background: var(--md-sys-color-surface);
+}
+
+.emberline-conversation {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.emberline-conversation__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.emberline-conversation__header h1 {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.emberline-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-height: 0;
+}
+
+.emberline-message {
+  display: flex;
+  max-width: 720px;
+}
+
+.emberline-message--user {
+  align-self: flex-end;
+}
+
+.emberline-message--assistant {
+  align-self: flex-start;
+}
+
+.emberline-message__bubble {
+  padding: 12px 16px;
+  border-radius: 18px;
+  font-size: 15px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+.emberline-message--user .emberline-message__bubble {
+  background: var(--md-sys-color-primary);
+  color: var(--md-sys-color-on-primary);
+  border-bottom-right-radius: 6px;
+}
+
+.emberline-message--assistant .emberline-message__bubble {
+  background: var(--md-sys-color-surface-container-high);
+  color: var(--md-sys-color-on-surface);
+  border-bottom-left-radius: 6px;
+}
+
+.emberline-composer {
+  padding: 16px 24px 20px;
+  border-top: 1px solid var(--md-sys-color-outline-variant);
+}
+
+.emberline-composer__row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.emberline-composer__input {
+  flex: 1;
+  resize: none;
+  border: 1px solid var(--md-sys-color-outline);
+  border-radius: 24px;
+  padding: 12px 16px;
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--md-sys-color-on-surface);
+  background: var(--md-sys-color-surface-container-low);
+  max-height: 160px;
+}
+
+.emberline-composer__input:focus {
+  outline: 2px solid var(--md-sys-color-primary);
+  outline-offset: 1px;
+}
+
+.emberline-composer__input:disabled {
+  opacity: 0.6;
+}
+
+.emberline-composer__hint {
+  max-width: 720px;
+  margin: 8px auto 0;
+  font-size: 12px;
+  color: var(--md-sys-color-on-surface-variant);
+}
+
+.emberline-send-icon {
+  transform: rotate(180deg);
+}
+
+.emberline-empty {
+  margin: auto;
+  text-align: center;
+  color: var(--md-sys-color-on-surface-variant);
+  padding: 48px 24px;
+}
+
+.emberline-empty h1 {
+  color: var(--md-sys-color-on-surface);
+}
+
+/* Compact (<600px): sidebar collapses to a top strip. */
+@media (max-width: 599px) {
+  .emberline-shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+
+  .emberline-sidebar {
+    border-right: none;
+    border-bottom: 1px solid var(--md-sys-color-outline-variant);
+    overflow: visible;
+  }
+
+  .emberline-convo-list {
+    flex-direction: row;
+    overflow-x: auto;
+    padding: 0 8px 8px;
+  }
+
+  .emberline-convo-item {
+    min-width: 160px;
+  }
+}
