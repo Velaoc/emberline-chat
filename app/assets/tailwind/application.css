@@ -53,6 +53,13 @@
   --color-md-on-tertiary-fixed-variant: var(--md-sys-color-on-tertiary-fixed-variant);
 }
 
+.emberline-topbar-signout {
+  position: fixed;
+  top: 8px;
+  right: 56px;
+  z-index: 40;
+}
+
 /* Emberline Chat — conversation shell, message bubbles, and composer. */
 .emberline-shell {
   display: grid;
