@@ -9,6 +9,8 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :confirmable, :lockable, :omniauthable
 
+  has_many :conversations, dependent: :destroy
+  has_many :messages, through: :conversations
   has_many :legal_acceptances, dependent: :destroy
   has_many :identities, dependent: :destroy
   has_sessions
