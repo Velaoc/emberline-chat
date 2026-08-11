@@ -82,6 +82,10 @@ class BillingTest < ActionDispatch::IntegrationTest
     assert_match(/sales/i, flash[:alert])
   end
 
+  def origin
+    Foundation.runtime_config.canonical_origin
+  end
+
   test "checkout uses the selected configured Stripe price" do
     host! "attacker.invalid"
     sign_in_billable(@owner, @organization)
@@ -99,8 +103,8 @@ class BillingTest < ActionDispatch::IntegrationTest
     assert_redirected_to "https://checkout.stripe.test/session_stub"
     assert_equal @organization, captured[:organization]
     assert_equal "price_pro_yearly", captured[:price_id]
-    assert_equal "https://example.com/billing?checkout=success", captured[:success_url]
-    assert_equal "https://example.com/pricing?interval=year", captured[:cancel_url]
+    assert_equal "#{origin}/billing?checkout=success", captured[:success_url]
+    assert_equal "#{origin}/pricing?interval=year", captured[:cancel_url]
     assert_no_match(/attacker\.invalid/, captured.values.join(" "))
   end
 
@@ -154,6 +158,6 @@ class BillingTest < ActionDispatch::IntegrationTest
     assert_response :see_other
     assert_redirected_to "https://billing.stripe.test/portal_stub"
     assert_equal @organization, portal_arguments[:organization]
-    assert_equal "https://example.com/billing", portal_arguments[:return_url]
+    assert_equal "#{origin}/billing", portal_arguments[:return_url]
   end
 end
