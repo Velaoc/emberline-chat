@@ -3,7 +3,8 @@ class ConversationsController < ApplicationController
   before_action :set_conversation, only: %i[show destroy]
 
   def index
-    redirect_to conversations_path(Conversation.for_user(current_user).ordered.first) if Conversation.for_user(current_user).exists?
+    @conversations = Conversation.for_user(current_user).ordered
+    @conversation = params[:id] ? Conversation.for_user(current_user).find_by(id: params[:id]) : @conversations.first
   end
 
   def show
