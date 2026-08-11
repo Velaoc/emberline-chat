@@ -5,7 +5,7 @@ class ConversationsController < ApplicationController
 
   def index
     @conversations = Conversation.for_user(current_user).ordered
-    @conversation = params[:id] ? Conversation.for_user(current_user).find_by(id: params[:id]) : @conversations.first
+    @conversation = @conversations.first
   end
 
   def show
