@@ -53,13 +53,6 @@
   --color-md-on-tertiary-fixed-variant: var(--md-sys-color-on-tertiary-fixed-variant);
 }
 
-.emberline-topbar-signout {
-  position: fixed;
-  top: 8px;
-  right: 56px;
-  z-index: 40;
-}
-
 /* Emberline Chat — conversation shell, message bubbles, and composer. */
 .emberline-shell {
   display: grid;
@@ -82,6 +75,12 @@
   justify-content: space-between;
   gap: 8px;
   padding: 16px;
+}
+
+.emberline-sidebar__actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .emberline-sidebar__label {
