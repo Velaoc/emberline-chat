@@ -1,4 +1,5 @@
 class ConversationsController < ApplicationController
+  layout "chat"
   before_action :authenticate_user!
   before_action :set_conversation, only: %i[show destroy]
 
