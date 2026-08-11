@@ -1,6 +1,8 @@
 require "test_helper"
 
 class HomePageTest < ActionDispatch::IntegrationTest
+  PASSWORD = "correct horse battery"
+
   test "guest sees the Emberline landing page" do
     get root_path
 
@@ -11,9 +13,11 @@ class HomePageTest < ActionDispatch::IntegrationTest
   end
 
   test "signed-in users are sent straight into chat" do
-    sign_in users(:confirmed)
-    get root_path
+    post user_session_path, params: { user: { email: users(:confirmed).email, password: PASSWORD } }
+    assert_response :redirect
+    follow_redirect!
 
+    get root_path
     assert_redirected_to conversations_path
   end
 end
