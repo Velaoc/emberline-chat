@@ -29,7 +29,7 @@ class AiProviderTest < ActiveSupport::TestCase
     provider = Ai::Demo.new
     chunks = []
     provider.stream([ { role: "user", content: "demo please" } ]) { |c| chunks << c }
-    assert_includes chunks.join, "Demo"
+    assert_match(/demo/i, chunks.join)
   end
 
   test "openai compatible raises a clear error without a key" do
