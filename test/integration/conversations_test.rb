@@ -18,10 +18,17 @@ class ConversationsIntegrationTest < ActionDispatch::IntegrationTest
     assert_difference "Conversation.count", 1 do
       post conversations_path
     end
-    assert_response :created
+    assert_redirected_to conversation_path(Conversation.order(:id).last)
     conversation = Conversation.order(:id).last
     assert_equal @user, conversation.user
     assert_equal "New chat", conversation.title
+  end
+
+  test "new chat redirects to the fresh conversation" do
+    assert_difference "Conversation.count", 1 do
+      get new_conversation_path
+    end
+    assert_redirected_to conversation_path(Conversation.order(:id).last)
   end
 
   test "guest is redirected to sign in" do
