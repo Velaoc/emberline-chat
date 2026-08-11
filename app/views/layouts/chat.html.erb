@@ -20,11 +20,6 @@
     <a class="md-skip-link" href="#main-content">Skip to main content</a>
     <%= render "foundation/components/top_app_bar", identity: identity %>
 
-    <% if user_signed_in? %>
-      <div class="emberline-topbar-signout">
-        <%= button_to "Sign out", destroy_user_session_path, method: :delete, class: "md-button md-button--text" %>
-      </div>
-    <% end %>
     <main id="main-content" class="emberline-main" tabindex="-1"><%= yield %></main>
 
     <% if notice.present? || alert.present? %>
