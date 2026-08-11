@@ -10,7 +10,7 @@
     </div>
     <nav class="emberline-convo-list">
       <% @conversations.each do |conversation| %>
-        <%= link_to conversation_path(conversation), class: class_names("emberline-convo-item", active: conversation == @conversation), data: { turbo_frame: "chat" } do %>
+        <%= link_to conversation_path(conversation), class: class_names("emberline-convo-item", active: conversation == @conversation) do %>
           <span class="emberline-convo-item__title"><%= conversation.title %></span>
           <span class="emberline-convo-item__meta"><%= time_ago_in_words(conversation.updated_at) %> ago</span>
         <% end %>
@@ -22,16 +22,14 @@
   </aside>
 
   <main class="emberline-chat" tabindex="-1">
-    <%= turbo_frame_tag "chat" do %>
-      <% if @conversation %>
-        <%= render "conversation", conversation: @conversation %>
-      <% else %>
-        <div class="emberline-empty">
-          <h1>Pick a conversation</h1>
-          <p>Or start a new one — replies stream in as they're written.</p>
-          <%= button_to "New chat", conversations_path, method: :post, class: "md-button md-button--filled", data: { turbo: false } %>
-        </div>
-      <% end %>
+    <% if @conversation %>
+      <%= render "conversation", conversation: @conversation %>
+    <% else %>
+      <div class="emberline-empty">
+        <h1>Start a conversation</h1>
+        <p>Replies stream in as they're written, and every thread is saved to your account.</p>
+        <%= button_to "New chat", conversations_path, method: :post, class: "md-button md-button--filled", data: { turbo: false } %>
+      </div>
     <% end %>
   </main>
 </div>
