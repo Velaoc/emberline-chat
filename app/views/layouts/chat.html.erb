@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%= foundation_meta_tags %>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="<%= Rails.configuration.x.foundation[:brand_seed_color] %>">
+    <meta name="application-name" content="<%= Rails.configuration.x.foundation[:application_name] %>">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="manifest" href="<%= pwa_manifest_path %>">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= yield :head %>
+    <%= stylesheet_link_tag "tailwind", "data-turbo-track": "reload" %>
+    <%= javascript_importmap_tags %>
+  </head>
+
+  <body class="md-app" data-controller="foundation--theme">
+    <% identity = Rails.configuration.x.foundation %>
+    <a class="md-skip-link" href="#main-content">Skip to main content</a>
+    <%= render "foundation/components/top_app_bar", identity: identity %>
+
+    <main id="main-content" class="emberline-main" tabindex="-1"><%= yield %></main>
+
+    <% if notice.present? || alert.present? %>
+      <div class="md-snackbar-region" aria-live="polite" aria-atomic="true">
+        <%= render "foundation/components/snackbar", message: notice, kind: :status if notice.present? %>
+        <%= render "foundation/components/snackbar", message: alert, kind: :alert if alert.present? %>
+      </div>
+    <% end %>
+  </body>
+</html>
