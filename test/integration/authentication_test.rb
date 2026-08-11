@@ -11,6 +11,8 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
     sign_in_as users(:confirmed)
     assert_redirected_to root_path
 
+    follow_redirect! # root sends signed-in users to their conversations
+    assert_redirected_to conversations_path
     follow_redirect!
     assert_select "button", text: "Sign out"
 
