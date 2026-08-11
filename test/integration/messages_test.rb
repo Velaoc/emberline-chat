@@ -1,10 +1,18 @@
 require "test_helper"
 
 class MessagesIntegrationTest < ActionDispatch::IntegrationTest
+  PASSWORD = "correct horse battery"
+
   setup do
     @user = users(:confirmed)
-    sign_in @user
+    sign_in_as @user
     @conversation = Conversation.create!(user: @user, title: "Test chat")
+  end
+
+  def sign_in_as(user, password: PASSWORD)
+    post user_session_path, params: { user: { email: user.email, password: password } }
+    assert_response :redirect
+    follow_redirect!
   end
 
   test "posting a message streams a demo reply and persists both messages" do
@@ -35,7 +43,7 @@ class MessagesIntegrationTest < ActionDispatch::IntegrationTest
   end
 
   test "guest cannot post messages" do
-    sign_out @user
+    delete destroy_user_session_path
     post conversation_messages_path(@conversation), params: { message: "hi" }
     assert_redirected_to new_user_session_path
   end
