@@ -130,6 +130,10 @@ Rails.application.routes.draw do
     get "session", to: "sessions#show", as: :session
   end
 
-  # Minimal landing page until the M7 marketing set replaces it.
-    root "foundation/home#show"
+  # Emberline Chat: signed-in users land on their conversation list.
+  resources :conversations, only: %i[index show new create destroy] do
+    resources :messages, only: %i[create]
+  end
+
+  root "conversations#index"
 end
