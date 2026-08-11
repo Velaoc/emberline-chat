@@ -13,7 +13,7 @@
     <% end %>
   </div>
 
-  <%= form_with url: conversation_messages_path(@conversation), method: :post, class: "emberline-composer", data: { chat_target: "form" } do |form| %>
+  <%= form_with url: conversation_messages_path(@conversation), method: :post, class: "emberline-composer", data: { chat_target: "form", action: "submit->chat#send" } do |form| %>
     <div class="emberline-composer__row">
       <label class="md-sr-only" for="message">Message</label>
       <textarea id="message" name="message" rows="1" class="emberline-composer__input" placeholder="Send a message…" required data-chat-target="input" data-action="keydown.enter->chat#submitOnEnter"></textarea>
