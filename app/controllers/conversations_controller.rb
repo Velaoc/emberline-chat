@@ -16,12 +16,11 @@ class ConversationsController < ApplicationController
   end
 
   def new
-    redirect_to conversations_path(Conversation.create!(user: current_user, title: "New chat"))
+    redirect_to conversation_path(Conversation.create!(user: current_user, title: "New chat"))
   end
 
   def create
-    conversation = Conversation.create!(user: current_user, title: "New chat")
-    render json: { id: conversation.id, redirect_url: conversation_path(conversation) }, status: :created
+    redirect_to conversation_path(Conversation.create!(user: current_user, title: "New chat"))
   end
 
   def destroy
