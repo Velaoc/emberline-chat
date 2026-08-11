@@ -1,0 +1,60 @@
+{
+  "name": "Emberline Chat",
+  "purpose": "ChatGPT-style chat app: users sign in, start conversations, send messages, and see assistant replies stream back through a pluggable AI provider adapter.",
+  "actors": [
+    "User (signed-in account owner)",
+    "Admin (viewer of app health, no per-user data access)"
+  ],
+  "entities": [
+    {
+      "name": "User",
+      "relationships": [
+        "has many Conversations",
+        "has many Messages through Conversations"
+      ]
+    },
+    {
+      "name": "Conversation",
+      "relationships": [
+        "belongs to User",
+        "has many Messages (ordered)",
+        "has a title"
+      ]
+    },
+    {
+      "name": "Message",
+      "relationships": [
+        "belongs to Conversation",
+        "has role (user|assistant)",
+        "has content",
+        "has streaming state"
+      ]
+    }
+  ],
+  "workflows": [
+    {
+      "name": "Sign in and start a conversation",
+      "description": "Authenticate (password + optional OAuth), then create a new conversation with an auto title."
+    },
+    {
+      "name": "Send a message and stream a reply",
+      "description": "User posts a message; the app appends it, calls the provider adapter, and streams the assistant reply back chunk by chunk; full reply is persisted."
+    },
+    {
+      "name": "Browse past conversations",
+      "description": "Sidebar lists the user's conversations; opening one shows the full message history."
+    },
+    {
+      "name": "Rename or delete a conversation",
+      "description": "Owner edits the title or removes the conversation and its messages."
+    }
+  ],
+  "modules": [],
+  "integrations": [
+    {
+      "name": "AI chat provider (OpenAI-compatible chat completions, streaming)",
+      "demo_adapter": true
+    }
+  ],
+  "seed_demo": "Demo user with two sample conversations: one greeting exchange with a canned assistant reply, one with a longer multi-paragraph reply demonstrating streaming and formatting."
+}
