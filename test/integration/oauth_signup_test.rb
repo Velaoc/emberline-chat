@@ -48,6 +48,8 @@ class OauthSignupTest < ActionDispatch::IntegrationTest
     assert_equal Foundation::Legal::PRIVACY_VERSION, acceptance.privacy_version
 
     assert_redirected_to root_path
+    follow_redirect! # root sends signed-in users to their conversations
+    assert_redirected_to conversations_path
     follow_redirect!
     assert_select "button", text: "Sign out"
   end
