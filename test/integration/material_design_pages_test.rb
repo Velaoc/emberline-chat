@@ -6,11 +6,6 @@ class MaterialDesignPagesTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "a.md-skip-link[href='#main-content']", text: "Skip to main content"
-    # foundation:module storefront
-    assert_select "h1", text: "Shop"
-    assert_select "a[href='#{storefront_cart_path}']", minimum: 1
-    assert_select ".md-pricing-grid", count: 0
-    # /foundation:module storefront
     assert_select "footer a", text: "Terms of Service"
   end
 
@@ -35,9 +30,6 @@ class MaterialDesignPagesTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_select "nav.md-navigation", count: 1
-    # foundation:module storefront
-    assert_select "nav.md-navigation a", text: /Shop/
-    # /foundation:module storefront
     assert_select "nav.md-navigation form button.md-navigation__signout", text: "Sign out", count: 1
     assert_select "main#main-content.md-main"
   end
